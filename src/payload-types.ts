@@ -69,6 +69,8 @@ export interface Config {
   collections: {
     users: User;
     media: Media;
+    project: Project;
+    technology: Technology;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -78,6 +80,8 @@ export interface Config {
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    project: ProjectSelect<false> | ProjectSelect<true>;
+    technology: TechnologySelect<false> | TechnologySelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -86,8 +90,18 @@ export interface Config {
   db: {
     defaultIDType: number;
   };
-  globals: {};
-  globalsSelect: {};
+  globals: {
+    about: About;
+    hero: Hero;
+    'side-projects': SideProject;
+    footer: Footer;
+  };
+  globalsSelect: {
+    about: AboutSelect<false> | AboutSelect<true>;
+    hero: HeroSelect<false> | HeroSelect<true>;
+    'side-projects': SideProjectsSelect<false> | SideProjectsSelect<true>;
+    footer: FooterSelect<false> | FooterSelect<true>;
+  };
   locale: null;
   user: User & {
     collection: 'users';
@@ -160,6 +174,38 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "project".
+ */
+export interface Project {
+  id: number;
+  title: string;
+  description: string;
+  featured?: boolean | null;
+  client_work?: boolean | null;
+  in_progress?: boolean | null;
+  technologies: (number | Technology)[];
+  deployed_url?: string | null;
+  github_url?: string | null;
+  screenshots?: (number | Media)[] | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "technology".
+ */
+export interface Technology {
+  id: number;
+  name: string;
+  icon: number | Media;
+  large_icon: number | Media;
+  homepage_url?: string | null;
+  highlight?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -189,6 +235,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'media';
         value: number | Media;
+      } | null)
+    | ({
+        relationTo: 'project';
+        value: number | Project;
+      } | null)
+    | ({
+        relationTo: 'technology';
+        value: number | Technology;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -274,6 +328,36 @@ export interface MediaSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "project_select".
+ */
+export interface ProjectSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  featured?: T;
+  client_work?: T;
+  in_progress?: T;
+  technologies?: T;
+  deployed_url?: T;
+  github_url?: T;
+  screenshots?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "technology_select".
+ */
+export interface TechnologySelect<T extends boolean = true> {
+  name?: T;
+  icon?: T;
+  large_icon?: T;
+  homepage_url?: T;
+  highlight?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv_select".
  */
 export interface PayloadKvSelect<T extends boolean = true> {
@@ -311,6 +395,98 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about".
+ */
+export interface About {
+  id: number;
+  headline: string;
+  description: string;
+  resume?: (number | null) | Media;
+  githubUrl?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "hero".
+ */
+export interface Hero {
+  id: number;
+  subheadline: string;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "side-projects".
+ */
+export interface SideProject {
+  id: number;
+  headline: string;
+  description: string;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "footer".
+ */
+export interface Footer {
+  id: number;
+  email: string;
+  githubUrl?: string | null;
+  repositoryUrl?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about_select".
+ */
+export interface AboutSelect<T extends boolean = true> {
+  headline?: T;
+  description?: T;
+  resume?: T;
+  githubUrl?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "hero_select".
+ */
+export interface HeroSelect<T extends boolean = true> {
+  subheadline?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "side-projects_select".
+ */
+export interface SideProjectsSelect<T extends boolean = true> {
+  headline?: T;
+  description?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "footer_select".
+ */
+export interface FooterSelect<T extends boolean = true> {
+  email?: T;
+  githubUrl?: T;
+  repositoryUrl?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

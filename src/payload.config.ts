@@ -1,13 +1,20 @@
 // storage-adapter-import-placeholder
-import { vercelPostgresAdapter } from '@payloadcms/db-vercel-postgres'
-import { lexicalEditor } from '@payloadcms/richtext-lexical'
-import path from 'path'
-import { buildConfig } from 'payload'
-import { fileURLToPath } from 'url'
-import sharp from 'sharp'
+import { vercelPostgresAdapter } from "@payloadcms/db-vercel-postgres"
+import { lexicalEditor } from "@payloadcms/richtext-lexical"
+import path from "path"
+import { buildConfig } from "payload"
+import { fileURLToPath } from "url"
+import sharp from "sharp"
 
-import { Users } from './collections/Users'
-import { Media } from './collections/Media'
+import { Users } from "./collections/Users"
+import { Media } from "./collections/Media"
+import { vercelBlobStorage } from "@payloadcms/storage-vercel-blob"
+import { Hero } from "@/globals/Hero"
+import { About } from "@/globals/About"
+import { Project } from "@/collections/Project"
+import { Technology } from "@/collections/Technology"
+import { SideProjects } from "@/globals/SideProjects"
+import { Footer } from "@/globals/Footer"
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -19,19 +26,25 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media],
+  collections: [Users, Media, Project, Technology],
+  globals: [About, Hero, SideProjects, Footer],
   editor: lexicalEditor(),
-  secret: process.env.PAYLOAD_SECRET || '',
+  secret: process.env.PAYLOAD_SECRET || "",
   typescript: {
-    outputFile: path.resolve(dirname, 'payload-types.ts'),
+    outputFile: path.resolve(dirname, "payload-types.ts"),
   },
   db: vercelPostgresAdapter({
     pool: {
-      connectionString: process.env.POSTGRES_URL || '',
+      connectionString: process.env.POSTGRES_URL || "",
     },
   }),
   sharp,
   plugins: [
-    // storage-adapter-placeholder
+    vercelBlobStorage({
+      collections: {
+        media: true,
+      },
+      token: process.env.BLOB_READ_WRITE_TOKEN,
+    }),
   ],
 })
