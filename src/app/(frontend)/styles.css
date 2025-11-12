@@ -6,6 +6,8 @@
     --color-foreground: var(--foreground);
     --color-primary: var(--primary);
     --color-muted: var(--muted);
+    --font-text: var(--font-inter);
+    --font-display: var(--font-space-grotesk);
 }
 
 :root {
@@ -14,6 +16,8 @@
     --foreground: #171717;
     --primary: #00AE73;
     --muted: #154261;
+    --font-inter: 'Inter', sans-serif;
+    --font-space-grotesk: 'Space Grotesk', sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -43,7 +47,7 @@ body,
 }
 
 body {
-    font-family: system-ui;
+    font-family: var(--font-text), Arial, Helvetica, sans-serif;
 
     margin: 0;
     background: var(--background);
