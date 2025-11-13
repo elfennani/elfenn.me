@@ -41,7 +41,7 @@ export const Header = (props: Props) => {
           </ul>
         </nav>
         <div className="flex-1 flex justify-end items-center gap-4">
-          <button className="bg-secondary max-md:hidden px-6 py-3 rounded-xl text-sm font-[450] justify-self-end leading-none tracking-wide text-white cursor-pointer hover:bg-secondary/90 transition-colors squircle">
+          <button className="bg-secondary dark:text-background max-md:hidden px-6 py-3 rounded-xl text-sm font-[450] justify-self-end leading-none tracking-wide text-white cursor-pointer hover:bg-secondary/90 transition-colors squircle">
             Contact Me
           </button>
           <button className="md:hidden size-10 flex items-center justify-center bg-background text-primary rounded-xl border border-border justify-self-end cursor-pointer hover:bg-secondary/5 transition-colors">
