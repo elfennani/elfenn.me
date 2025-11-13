@@ -16,7 +16,7 @@ export const Header = (props: Props) => {
   ]
 
   return (
-    <header {...props} className={cn("fixed inset-x-0 top-0 h-20", props.className)}>
+    <header {...props} className={cn("fixed inset-x-0 top-0 h-20 z-40", props.className)}>
       <ProgressiveBlur />
       <div className="max-w-6xl mx-auto px-6 md:px-8 h-20 flex gap-4 items-center">
         <div className="flex-1">

@@ -197,8 +197,13 @@ export interface Project {
 export interface Technology {
   id: number;
   name: string;
-  icon: number | Media;
-  large_icon: number | Media;
+  /**
+   * The BrandFetch identifier for this technology (e.g., 'react', 'nodejs'). Used to fetch the logo automatically.
+   */
+  brand_identifier: string;
+  symbol_override?: (number | null) | Media;
+  logo_override?: (number | null) | Media;
+  dark_mode_logo_override?: (number | null) | Media;
   homepage_url?: string | null;
   highlight?: boolean | null;
   updatedAt: string;
@@ -349,8 +354,10 @@ export interface ProjectSelect<T extends boolean = true> {
  */
 export interface TechnologySelect<T extends boolean = true> {
   name?: T;
-  icon?: T;
-  large_icon?: T;
+  brand_identifier?: T;
+  symbol_override?: T;
+  logo_override?: T;
+  dark_mode_logo_override?: T;
   homepage_url?: T;
   highlight?: T;
   updatedAt?: T;

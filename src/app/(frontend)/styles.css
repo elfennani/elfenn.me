@@ -62,7 +62,7 @@ body {
 
 .grid-background::before {
     --size: 56px;
-    background:linear-gradient(to left, transparent, transparent calc(var(--size) - 1px), var(--color-border) calc(var(--size) - 1px), var(--color-border) var(--size)), linear-gradient(to bottom, transparent, transparent calc(var(--size) - 1px), var(--color-border) calc(var(--size) - 1px), var(--color-border) var(--size)) repeat;
+    background: linear-gradient(to left, transparent, transparent calc(var(--size) - 1px), var(--color-border) calc(var(--size) - 1px), var(--color-border) var(--size)), linear-gradient(to bottom, transparent, transparent calc(var(--size) - 1px), var(--color-border) calc(var(--size) - 1px), var(--color-border) var(--size)) repeat;
     background-size: var(--size) var(--size);
     animation: backgroundPan 5s linear infinite;
     content: "";
@@ -72,7 +72,7 @@ body {
     z-index: -2;
 }
 
-.grid-background::after{
+.grid-background::after {
     content: "";
     position: absolute;
     top: 0;
@@ -80,9 +80,9 @@ body {
     right: 0;
     bottom: 0;
     background: radial-gradient(circle, rgb(from var(--color-background) r g b / 0.8) 20%, transparent 100%), linear-gradient(
-        to bottom,
-        transparent 80%,
-        var(--color-background) 100%
+            to bottom,
+            transparent 80%,
+            var(--color-background) 100%
     );
     pointer-events: none;
     z-index: -1;
@@ -97,18 +97,42 @@ body {
     }
 }
 
+.stripes-background {
+    --size: 16px;
+    background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent calc(var(--size) - 1px),
+        var(--color-border) calc(var(--size) - 1px),
+        var(--color-border) var(--size)
+    );
+    background-size: calc(var(--size) * sqrt(2)) auto;
+    animation: stripePan 2s linear infinite;
+}
+
+@keyframes stripePan {
+    from {
+        background-position: 0 0;
+    }
+    to {
+        background-position: calc(var(--size) * sqrt(2)) 0;
+    }
+}
+
 .progressive-blur {
     position: absolute;
     z-index: -1;
     inset: 0;
     pointer-events: none;
 }
+
 .progressive-blur > div,
 .progressive-blur::before,
 .progressive-blur::after {
     position: absolute;
     inset: 0;
 }
+
 .progressive-blur::before {
     content: "";
     z-index: 1;
@@ -121,6 +145,7 @@ body {
             rgba(0, 0, 0, 0) 37.5%
     );
 }
+
 .progressive-blur > div:nth-of-type(1) {
     z-index: 2;
     backdrop-filter: blur(1px);
@@ -132,6 +157,7 @@ body {
             rgba(0, 0, 0, 0) 50%
     );
 }
+
 .progressive-blur > div:nth-of-type(2) {
     z-index: 3;
     backdrop-filter: blur(2px);
@@ -143,6 +169,7 @@ body {
             rgba(0, 0, 0, 0) 62.5%
     );
 }
+
 .progressive-blur > div:nth-of-type(3) {
     z-index: 4;
     backdrop-filter: blur(4px);
@@ -154,6 +181,7 @@ body {
             rgba(0, 0, 0, 0) 75%
     );
 }
+
 .progressive-blur > div:nth-of-type(4) {
     z-index: 5;
     backdrop-filter: blur(8px);
@@ -165,6 +193,7 @@ body {
             rgba(0, 0, 0, 0) 87.5%
     );
 }
+
 .progressive-blur > div:nth-of-type(5) {
     z-index: 6;
     backdrop-filter: blur(16px);
@@ -176,6 +205,7 @@ body {
             rgba(0, 0, 0, 0) 100%
     );
 }
+
 .progressive-blur > div:nth-of-type(6) {
     z-index: 7;
     backdrop-filter: blur(32px);
@@ -186,6 +216,7 @@ body {
             rgba(0, 0, 0, 1) 100%
     );
 }
+
 .progressive-blur::after {
     content: "";
     z-index: 8;
@@ -238,7 +269,7 @@ body {
     }
 }
 
-.action-button > span{
+.action-button > span {
     position: relative;
 }
 
@@ -254,7 +285,7 @@ body {
     z-index: -1;
 }
 
-.action-button:hover > span::before{
+.action-button:hover > span::before {
     width: 80%;
     background-color: var(--color-primary);
 }

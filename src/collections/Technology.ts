@@ -16,18 +16,39 @@ export const Technology: CollectionConfig = {
       required: true,
     },
     {
-      name: "icon",
-      type: "upload",
-      label: "Technology Icon",
-      relationTo: "media",
+      name: "brand_identifier",
+      type: "text",
+      label: "BrandFetch Identifier",
       required: true,
+      unique: true,
+      admin: {
+        description:
+          "The BrandFetch identifier for this technology (e.g., 'react', 'nodejs'). Used to fetch the logo automatically.",
+        components: {
+          afterInput: ["/components/admin/BrandField", "/components/admin/BrandLogo"],
+        },
+      },
     },
     {
-      name: "large_icon",
+      name: "symbol_override",
       type: "upload",
-      label: "Large Technology Icon",
+      label: "Symbol Override",
       relationTo: "media",
-      required: true,
+      required: false,
+    },
+    {
+      name: "logo_override",
+      type: "upload",
+      label: "Logo Override",
+      relationTo: "media",
+      required: false,
+    },
+    {
+      name: "dark_mode_logo_override",
+      type: "upload",
+      label: "Dark Mode Logo Override",
+      relationTo: "media",
+      required: false,
     },
     {
       name: "homepage_url",
