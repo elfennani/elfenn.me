@@ -15,6 +15,7 @@ import { Project } from "@/collections/Project"
 import { Technology } from "@/collections/Technology"
 import { SideProjects } from "@/globals/SideProjects"
 import { Footer } from "@/globals/Footer"
+import { RevalidateButton } from "@/components/RevalidateButton"
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -24,6 +25,9 @@ export default buildConfig({
     user: Users.slug,
     importMap: {
       baseDir: path.resolve(dirname),
+    },
+    components: {
+      actions: ["/components/RevalidateButton"],
     },
   },
   collections: [Users, Media, Project, Technology],
