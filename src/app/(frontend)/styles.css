@@ -289,3 +289,33 @@ body {
     width: 80%;
     background-color: var(--color-primary);
 }
+
+.animate-pan {
+    animation: pan 20s ease-in-out infinite alternate;
+}
+.animate-rotate {
+    animation: rotate 60s linear infinite;
+}
+
+.after\:bg-gradient-to-bl::after{
+    background: linear-gradient(to bottom, transparent, var(--color-background)),
+                linear-gradient(to right, var(--color-background) calc(50% - 1px), var(--color-background) 50%, transparent 75%);
+}
+
+@keyframes pan {
+    from {
+        transform: translateX(0%);
+    }
+    to {
+        transform: translateX(50%);
+    }
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}

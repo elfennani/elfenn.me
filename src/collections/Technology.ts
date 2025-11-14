@@ -37,6 +37,13 @@ export const Technology: CollectionConfig = {
       required: false,
     },
     {
+      name: "dark_mode_symbol_override",
+      type: "upload",
+      label: "Dark Mode Symbol Override",
+      relationTo: "media",
+      required: false,
+    },
+    {
       name: "logo_override",
       type: "upload",
       label: "Logo Override",

@@ -6,10 +6,11 @@ import configPromise from "@payload-config"
 import { cacheTag } from "next/dist/server/use-cache/cache-tag"
 import Link from "next/link"
 import { Media } from "@/payload-types"
+import FeaturedProjectCard from "@/components/FeaturedProjectCard"
 
 export default async function HomePage() {
-  // "use cache"
-  // cacheTag("home-page")
+  "use cache"
+  cacheTag("home-page")
 
   const payload = await getPayload({
     config: configPromise,
@@ -26,6 +27,13 @@ export default async function HomePage() {
     collection: "technology",
     limit: 12,
     depth: 1,
+    pagination: false,
+  })
+
+  const projects = await payload.find({
+    collection: "project",
+    limit: 2,
+    depth: 2,
     pagination: false,
   })
 
@@ -148,6 +156,15 @@ export default async function HomePage() {
                 </div>
               ))}
             </div>
+          </div>
+        </div>
+      </div>
+      <div className="py-4 sm:py-8">
+        <div className="max-w-6xl mx-auto px-6 sm:px-8">
+          <div className="flex max-sm:flex-col w-full relative after:-z-10 before:-z-10 after:absolute after:-inset-y-px after:-inset-x-3 sm:after:-inset-x-4 after:border-y after:border-y-border before:absolute before:-inset-x-px before:-inset-y-3 sm:before:-inset-y-4 before:border-x before:border-x-border">
+            <FeaturedProjectCard className="flex-1" project={projects.docs[0]} index={0} />
+            <div className="max-sm:h-px sm:w-px bg-border" />
+            <FeaturedProjectCard className="flex-1" project={projects.docs[1]} index={1} />
           </div>
         </div>
       </div>

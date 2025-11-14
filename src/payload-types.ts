@@ -202,6 +202,7 @@ export interface Technology {
    */
   brand_identifier: string;
   symbol_override?: (number | null) | Media;
+  dark_mode_symbol_override?: (number | null) | Media;
   logo_override?: (number | null) | Media;
   dark_mode_logo_override?: (number | null) | Media;
   homepage_url?: string | null;
@@ -356,6 +357,7 @@ export interface TechnologySelect<T extends boolean = true> {
   name?: T;
   brand_identifier?: T;
   symbol_override?: T;
+  dark_mode_symbol_override?: T;
   logo_override?: T;
   dark_mode_logo_override?: T;
   homepage_url?: T;
