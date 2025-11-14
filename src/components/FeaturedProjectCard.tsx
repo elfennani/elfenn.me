@@ -28,7 +28,7 @@ const FeaturedProjectCard = ({ project, index, className }: Props) => {
         </>
       ) : (
         <div className="absolute top-0 right-0 translate-x-1/2 -translate-y-1/2 -z-20 size-96">
-          <VectorBackground2 className="animate-rotate" />
+          <VectorBackground2 />
         </div>
       )}
       <span className="font-display self-start text-3xl sm:text-4xl md:text-6xl font-bold tracking-tighter text-secondary relative after:absolute after:-right-4 sm:after:-right-8 after:top-1/2 after:-translate-y-1/2 after:size-1.5 sm:after:size-2 after:bg-primary after:rounded-full">
