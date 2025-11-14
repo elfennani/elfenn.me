@@ -45,7 +45,7 @@ export default async function HomePage() {
           <div className="flex leading-none select-none flex-col font-display font-bold text-5xl sm:text-8xl italic -space-y-3 sm:-space-y-6 tracking-tighter">
             <span className="-ml-20 sm:-ml-40 text-secondary">DESIGN</span>
             <span className="text-primary">DEVELOP</span>
-            <span className="ml-15 sm:ml-30 text-secondary">PUBLISH</span>
+            <span className="ml-15 sm:ml-30 text-secondary">DEPLOY</span>
           </div>
           <p className="sm:text-lg text-muted leading-7 tracking-tight font-[350] text-pretty max-w-md mx-auto">
             {catchPhrase.subheadline}
