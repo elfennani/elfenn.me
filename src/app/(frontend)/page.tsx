@@ -41,8 +41,6 @@ export default async function HomePage() {
   const featuredProjects = projects.docs.filter((project) => project.featured)
   const sideProjects = projects.docs.filter((project) => !project.featured)
 
-  console.log(featuredProjects, sideProjects)
-
   return (
     <div className="min-h-[200svh] space-y-8">
       <Header />
@@ -101,7 +99,7 @@ export default async function HomePage() {
           </div>
         </div>
       </div>
-      <div className="py-8 space-y-4">
+      <div className="py-8 space-y-4" id="technologies">
         <div className="max-w-6xl mx-auto px-6 sm:px-8">
           <span className="uppercase font-semibold tracking-wide text-xs sm:text-sm text-muted block">
             Technologies I Work With
@@ -165,7 +163,7 @@ export default async function HomePage() {
           </div>
         </div>
       </div>
-      <div className="py-4 sm:py-8">
+      <div className="py-4 sm:py-8" id="projects">
         <div className="max-w-6xl mx-auto px-6 sm:px-8">
           <div className="grid sm:grid-cols-2 w-full relative after:-z-10 before:-z-10 after:absolute after:-inset-y-px after:-inset-x-3 sm:after:-inset-x-4 after:border-y after:border-y-border before:absolute before:-inset-x-px before:-inset-y-3 sm:before:-inset-y-4 before:border-x before:border-x-border">
             {featuredProjects.map((project, i) => (
@@ -236,7 +234,6 @@ export default async function HomePage() {
               >
                 Portfolio Repository
               </a>
-              {" • "}
             </p>
           </div>
         </div>

@@ -9,8 +9,9 @@ type Props = {
   project: Project
 }
 export const SideProjectCard = ({ project }: Props) => {
+  const isDev = process.env.NODE_ENV === "development"
   // FIXME: This causes a hydration mismatch warning because the random value is different on server and client
-  const [randomRotation] = useState(Math.random() * 6 - 3)
+  const [randomRotation] = useState(isDev ? 0 : Math.random() * 6 - 3)
 
   return (
     <div
