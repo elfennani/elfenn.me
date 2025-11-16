@@ -1,6 +1,7 @@
 "use client"
 import * as React from "react"
 import { useEffect } from "react"
+import { cn } from "@/utils/cn"
 
 type Props = React.SVGProps<SVGSVGElement>
 const VectorBackground2 = (props: Props) => {
@@ -23,7 +24,7 @@ const VectorBackground2 = (props: Props) => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       {...props}
-      className="*:animate-rotate *:origin-center"
+      className={props.className}
     >
       <path
         opacity="0.05"

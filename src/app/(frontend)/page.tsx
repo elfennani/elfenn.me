@@ -7,6 +7,8 @@ import { cacheTag } from "next/dist/server/use-cache/cache-tag"
 import Link from "next/link"
 import { Media } from "@/payload-types"
 import FeaturedProjectCard from "@/components/FeaturedProjectCard"
+import { SideProjectCard } from "@/components/SideProjectCard"
+import Logo from "@/app/(frontend)/logo"
 
 export default async function HomePage() {
   "use cache"
@@ -32,10 +34,14 @@ export default async function HomePage() {
 
   const projects = await payload.find({
     collection: "project",
-    limit: 2,
     depth: 2,
     pagination: false,
   })
+
+  const featuredProjects = projects.docs.filter((project) => project.featured)
+  const sideProjects = projects.docs.filter((project) => !project.featured)
+
+  console.log(featuredProjects, sideProjects)
 
   return (
     <div className="min-h-[200svh] space-y-8">
@@ -161,13 +167,72 @@ export default async function HomePage() {
       </div>
       <div className="py-4 sm:py-8">
         <div className="max-w-6xl mx-auto px-6 sm:px-8">
-          <div className="flex max-sm:flex-col w-full relative after:-z-10 before:-z-10 after:absolute after:-inset-y-px after:-inset-x-3 sm:after:-inset-x-4 after:border-y after:border-y-border before:absolute before:-inset-x-px before:-inset-y-3 sm:before:-inset-y-4 before:border-x before:border-x-border">
-            <FeaturedProjectCard className="flex-1" project={projects.docs[0]} index={0} />
-            <div className="max-sm:h-px sm:w-px bg-border" />
-            <FeaturedProjectCard className="flex-1" project={projects.docs[1]} index={1} />
+          <div className="grid sm:grid-cols-2 w-full relative after:-z-10 before:-z-10 after:absolute after:-inset-y-px after:-inset-x-3 sm:after:-inset-x-4 after:border-y after:border-y-border before:absolute before:-inset-x-px before:-inset-y-3 sm:before:-inset-y-4 before:border-x before:border-x-border">
+            {featuredProjects.map((project, i) => (
+              <FeaturedProjectCard
+                className="flex-1 sm:[&:nth-child(odd)]:border-r border-border sm:border-b sm:[&:nth-last-child(even)]:border-b-0 sm:[&:nth-last-child(odd)]:border-b-0"
+                project={project}
+                index={i}
+                key={project.id}
+              />
+            ))}
           </div>
         </div>
       </div>
+      <div className="py-4 sm:py-8">
+        <div className="max-w-6xl mx-auto px-6 sm:px-8 grid sm:grid-cols-2 gap-4">
+          <div className="space-y-1">
+            <span className="uppercase font-semibold tracking-wide text-xs sm:text-sm text-muted block">
+              projects
+            </span>
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-bold tracking-tighter">
+              Side Projects
+            </h1>
+            <p className="mt-6 lg:text-lg leading-7 text-muted md:max-w-md">
+              A collection of smaller or experimental projects showcasing range, problem-solving,
+              and technical versatility across different tools and frameworks.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2">
+            {sideProjects.map((project) => (
+              <SideProjectCard project={project} key={project.id} />
+            ))}
+          </div>
+        </div>
+      </div>
+      <footer>
+        <div className="max-w-6xl mx-auto px-6 sm:px-8">
+          <div className="py-4 border-b border-border flex max-sm:justify-center">
+            <Logo className="h-8" />
+          </div>
+          <div className="py-4 flex flex-col max-sm:items-center sm:flex-row sm:justify-between gap-4">
+            <p className="text-xs text-muted">
+              Email:{" "}
+              <a
+                href="mailto:elfennani.nizar@gmail.com"
+                className="underline hover:text-primary transition-colors underline-offset-4"
+              >
+                elfennani.nizar@gmail.com
+              </a>
+            </p>
+            <p className="text-xs text-muted">
+              <a
+                href="https://github.com/elfennani"
+                className="underline hover:text-primary transition-colors underline-offset-4"
+              >
+                GitHub
+              </a>
+              {" • "}
+              <a
+                href="https://github.com/elfennani/elfenn.me"
+                className="underline hover:text-primary transition-colors underline-offset-4"
+              >
+                Portfolio Repository
+              </a>
+            </p>
+          </div>
+        </div>
+      </footer>
     </div>
   )
 }
