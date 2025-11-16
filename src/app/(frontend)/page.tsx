@@ -9,6 +9,8 @@ import { Media } from "@/payload-types"
 import FeaturedProjectCard from "@/components/FeaturedProjectCard"
 import { SideProjectCard } from "@/components/SideProjectCard"
 import Logo from "@/app/(frontend)/logo"
+import { HeroCatchphrase } from "@/components/hero-catchphrase"
+import { Hero } from "@/components/hero"
 
 export default async function HomePage() {
   "use cache"
@@ -44,22 +46,7 @@ export default async function HomePage() {
   return (
     <div className="min-h-[200svh] space-y-8">
       <Header />
-      <div className="flex flex-col items-center justify-center min-h-svh py-2 text-center px-4 grid-background">
-        <div className="space-y-6">
-          <div className="flex leading-none select-none flex-col font-display font-bold text-5xl sm:text-8xl italic -space-y-3 sm:-space-y-6 tracking-tighter">
-            <span className="-ml-20 sm:-ml-40 text-secondary">DESIGN</span>
-            <span className="text-primary">DEVELOP</span>
-            <span className="ml-15 sm:ml-30 text-secondary">DEPLOY</span>
-          </div>
-          <p className="sm:text-lg text-muted leading-7 tracking-tight font-[350] text-pretty max-w-md mx-auto">
-            {catchPhrase.subheadline}
-          </p>
-          <button className="flex items-center gap-3 mx-auto bg-background text-primary h-14 px-8 rounded-2xl shadow-[0_8px_50px_8px] shadow-primary/15 text-sm tracking-wide font-[450] hover:shadow-primary/25 transition-shadow group cursor-pointer">
-            <LucideMoveRight className="group-hover:rotate-90 transition-transform ease-out" />
-            More about me
-          </button>
-        </div>
-      </div>
+      <Hero subheadline={catchPhrase.subheadline} />
       <div className="-mt-16" id="about-me">
         <div className="max-w-6xl mx-auto px-6 sm:px-8">
           <div className="space-y-1">
