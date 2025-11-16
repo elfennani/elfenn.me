@@ -224,11 +224,19 @@ export default async function HomePage() {
               </a>
               {" • "}
               <a
+                href="https://www.figma.com/design/gc3lnsx2PPKxjWiX1vhtsn/Portfolio?node-id=10-2&t=9LjPeaWrRBpE8tHz-1"
+                className="underline hover:text-primary transition-colors underline-offset-4"
+              >
+                Figma Design
+              </a>
+              {" • "}
+              <a
                 href="https://github.com/elfennani/elfenn.me"
                 className="underline hover:text-primary transition-colors underline-offset-4"
               >
                 Portfolio Repository
               </a>
+              {" • "}
             </p>
           </div>
         </div>
