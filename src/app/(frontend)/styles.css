@@ -344,6 +344,11 @@ body {
         border-radius: var(--radius-4xl) /* 2rem = 32px */;
         corner-shape: squircle;
     }
+
+    .rounded-4xl {
+        border-radius: 2.5rem; /* 2.5rem = 40px */;
+        corner-shape: squircle;
+    }
 }
 
 .action-button > span {
