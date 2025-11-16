@@ -10,8 +10,8 @@ type Props = {
 }
 export const Hero = ({ subheadline }: Props) => {
   return (
-    <div className="flex flex-col items-center justify-center min-h-svh py-2 text-center px-4 grid-background">
-      <div className="space-y-6">
+    <div className="flex w-full flex-col items-center justify-center min-h-[720px] h-svh py-2 text-center px-4 grid-background">
+      <div className="space-y-6 w-full">
         <HeroCatchphrase />
         <motion.p
           initial={{ y: 20, opacity: 0 }}

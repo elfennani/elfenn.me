@@ -11,6 +11,7 @@ import { SideProjectCard } from "@/components/SideProjectCard"
 import Logo from "@/app/(frontend)/logo"
 import { HeroCatchphrase } from "@/components/hero-catchphrase"
 import { Hero } from "@/components/hero"
+import { TechnologyCell } from "@/components/TechnologyCell"
 
 export default async function HomePage() {
   "use cache"
@@ -95,56 +96,8 @@ export default async function HomePage() {
         <div className="stripes-background border-y border-border relative">
           <div className="max-w-6xl mx-auto px-6 sm:px-8">
             <div className="grid bg-border gap-px px-px *:bg-background grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 h-full">
-              {technologies.docs.map((tech) => (
-                <div key={tech.id} className="py-4 px-8 h-20">
-                  {tech.logo_override ? (
-                    // <img
-                    //   className="size-full object-contain dark:brightness-200 dark:saturate-0 "
-                    //   src={(tech.logo_override as Media).url!}
-                    //   alt={tech.name}
-                    // />
-                    <picture>
-                      <source
-                        media="(prefers-color-scheme: light)"
-                        srcSet={(tech.logo_override as Media).url!}
-                        type="image/svg+xml"
-                        className="dark:brightness-200 dark:saturate-0"
-                      />
-                      {tech.dark_mode_logo_override && (
-                        <source
-                          media="(prefers-color-scheme: dark)"
-                          srcSet={(tech.dark_mode_logo_override as Media).url!}
-                        />
-                      )}
-                      <img
-                        className="size-full object-contain"
-                        src={(tech.logo_override as Media).url!}
-                        alt={tech.name}
-                      />
-                    </picture>
-                  ) : (
-                    <picture>
-                      <source
-                        media="(prefers-color-scheme: light)"
-                        srcSet={`https://cdn.brandfetch.io/${tech.brand_identifier}/logo?c=1idIpPfKaZoBskq9FCV&type=logo&format=svg`}
-                        type="image/svg+xml"
-                        className="dark:brightness-200 dark:saturate-0"
-                      />
-                      <source
-                        media="(prefers-color-scheme: dark)"
-                        srcSet={
-                          (tech.dark_mode_logo_override as Media)?.url ||
-                          `https://cdn.brandfetch.io/${tech.brand_identifier}/theme/light/logo?c=1idIpPfKaZoBskq9FCV&type=logo&format=png&mode=dark`
-                        }
-                      />
-                      <img
-                        className="size-full object-contain "
-                        src={`https://cdn.brandfetch.io/${tech.brand_identifier}/logo?c=1idIpPfKaZoBskq9FCV&type=logo&format=png`}
-                        alt={tech.name}
-                      />
-                    </picture>
-                  )}
-                </div>
+              {technologies.docs.map((tech, index) => (
+                <TechnologyCell technology={tech} key={tech.id} index={index} />
               ))}
             </div>
           </div>
@@ -179,8 +132,8 @@ export default async function HomePage() {
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2">
-            {sideProjects.map((project) => (
-              <SideProjectCard project={project} key={project.id} />
+            {sideProjects.map((project, i) => (
+              <SideProjectCard project={project} index={i} key={project.id} />
             ))}
           </div>
         </div>

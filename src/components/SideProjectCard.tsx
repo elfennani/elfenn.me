@@ -1,23 +1,44 @@
 "use client"
 import * as React from "react"
 import { Media, Project } from "@/payload-types"
-import { useState } from "react"
+import { useRef, useState } from "react"
 import { cn } from "@/utils/cn"
 import { ProgressiveBlur } from "@/components/ProgressiveBlur"
+import { motion, useInView } from "motion/react"
+import { Variants } from "motion"
 
 type Props = {
   project: Project
+  index?: number
 }
-export const SideProjectCard = ({ project }: Props) => {
-  const isDev = process.env.NODE_ENV === "development"
+
+const variants: Variants = {
+  hidden: { scale: 0.5, filter: "blur(10px)", opacity: 0, rotate: 0 },
+  visible: (randomRotation: number) => ({
+    scale: 1,
+    opacity: 1,
+    filter: "blur(0px)",
+    rotate: randomRotation,
+  }),
+}
+
+export const SideProjectCard = ({ project, index = 0 }: Props) => {
   // FIXME: This causes a hydration mismatch warning because the random value is different on server and client
-  const [randomRotation] = useState(isDev ? 0 : Math.random() * 6 - 3)
+  const [randomRotation] = useState(Math.random() * 6 - 3)
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once: true, margin: "0px 0px -100px 0px" })
 
   return (
-    <div
-      key={project.id}
-      className="p-2 rounded-4xl sm:rounded-2xl bg-background border border-border shadow-xl aspect-[4/3] sm:odd:translate-x-2 sm:even:-translate-x-2 hover:scale-105 hover:rotate-back hover:z-10 transition-transform duration-200 ease-in-out cursor-pointer"
+    <motion.div
+      ref={ref}
+      className="p-2 rounded-4xl sm:rounded-2xl bg-background border border-border shadow-xl aspect-[4/3] sm:odd:translate-x-2 sm:even:-translate-x-2 hover:z-10 cursor-pointer"
       style={{ transform: `rotate(${randomRotation}deg)` }}
+      variants={variants}
+      initial="hidden"
+      animate={isInView ? "visible" : "hidden"}
+      custom={randomRotation}
+      transition={{ delay: 0.05 * index, type: "spring" }}
+      whileHover={{ scale: 1.05, rotate: 0, transition: { type: "spring", stiffness: 400 } }}
     >
       <div
         className={cn(
@@ -39,6 +60,6 @@ export const SideProjectCard = ({ project }: Props) => {
           {project.description}
         </p>
       </div>
-    </div>
+    </motion.div>
   )
 }
