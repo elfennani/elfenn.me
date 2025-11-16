@@ -15,6 +15,7 @@ import { Project } from "@/collections/Project"
 import { Technology } from "@/collections/Technology"
 import { SideProjects } from "@/globals/SideProjects"
 import { Footer } from "@/globals/Footer"
+import { Metadata } from "@/globals/Metadata"
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -30,7 +31,7 @@ export default buildConfig({
     },
   },
   collections: [Users, Media, Project, Technology],
-  globals: [About, Hero, SideProjects, Footer],
+  globals: [About, Hero, SideProjects, Footer, Metadata],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || "",
   typescript: {

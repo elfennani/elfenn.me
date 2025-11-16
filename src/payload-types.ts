@@ -95,12 +95,14 @@ export interface Config {
     hero: Hero;
     'side-projects': SideProject;
     footer: Footer;
+    metadata: Metadatum;
   };
   globalsSelect: {
     about: AboutSelect<false> | AboutSelect<true>;
     hero: HeroSelect<false> | HeroSelect<true>;
     'side-projects': SideProjectsSelect<false> | SideProjectsSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
+    metadata: MetadataSelect<false> | MetadataSelect<true>;
   };
   locale: null;
   user: User & {
@@ -453,6 +455,23 @@ export interface Footer {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "metadata".
+ */
+export interface Metadatum {
+  id: number;
+  title: string;
+  description: string;
+  keywords?:
+    | {
+        keyword?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "about_select".
  */
 export interface AboutSelect<T extends boolean = true> {
@@ -493,6 +512,23 @@ export interface FooterSelect<T extends boolean = true> {
   email?: T;
   githubUrl?: T;
   repositoryUrl?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "metadata_select".
+ */
+export interface MetadataSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  keywords?:
+    | T
+    | {
+        keyword?: T;
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

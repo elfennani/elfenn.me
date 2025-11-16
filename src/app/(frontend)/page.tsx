@@ -12,6 +12,25 @@ import Logo from "@/app/(frontend)/logo"
 import { HeroCatchphrase } from "@/components/hero-catchphrase"
 import { Hero } from "@/components/hero"
 import { TechnologyCell } from "@/components/TechnologyCell"
+import { Metadata } from "next"
+
+export const generateMetadata = async (): Promise<Metadata> => {
+  const payload = await getPayload({
+    config: configPromise,
+  })
+
+  const siteSettings = await payload.findGlobal({
+    slug: "metadata",
+  })
+
+  return {
+    title: siteSettings.title || "Nizar Elfennani - Software Developer",
+    description:
+      siteSettings.description ||
+      "Nizar Elfennani's personal portfolio showcasing projects, skills, and contact information.",
+    keywords: siteSettings.keywords?.map((k) => k.keyword as string) ?? [],
+  }
+}
 
 export default async function HomePage() {
   "use cache"
