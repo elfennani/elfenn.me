@@ -9,6 +9,7 @@ type Props = {
   project: Project
 }
 export const SideProjectCard = ({ project }: Props) => {
+  // FIXME: This causes a hydration mismatch warning because the random value is different on server and client
   const [randomRotation] = useState(Math.random() * 6 - 3)
 
   return (
@@ -19,19 +20,16 @@ export const SideProjectCard = ({ project }: Props) => {
     >
       <div
         className={cn(
-          "bg-muted/10 size-full rounded-3xl sm:rounded-lg relative flex justify-end flex-col p-4 overflow-hidden from-black/50 via-transparent bg-linear-to-t text-white",
+          "bg-muted/10 size-full rounded-3xl sm:rounded-lg relative flex justify-end flex-col p-4 overflow-hidden from-black/60 via-transparent bg-linear-to-t text-white",
           !project.screenshots?.length && "text-secondary",
         )}
       >
         {project.screenshots?.[0] && (
-          <>
-            <img
-              src={(project.screenshots[0] as Media).url!}
-              alt={project.title}
-              className="object-cover rounded-lg absolute inset-0 -z-20"
-            />
-            <ProgressiveBlur inverse className="bottom-0! top-auto! h-2/3 -z-10!" />
-          </>
+          <img
+            src={(project.screenshots[0] as Media).url!}
+            alt={project.title}
+            className="object-cover rounded-lg absolute inset-0 -z-20"
+          />
         )}
         <h2 className="font-display text-lg font-bold tracking-tight sm:tracking-tighter sm:leading-snug">
           {project.title}
