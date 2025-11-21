@@ -183,6 +183,7 @@ export interface Project {
   title: string;
   description: string;
   featured?: boolean | null;
+  timeframe?: string | null;
   client_work?: boolean | null;
   in_progress?: boolean | null;
   technologies: (number | Technology)[];
@@ -342,6 +343,7 @@ export interface ProjectSelect<T extends boolean = true> {
   title?: T;
   description?: T;
   featured?: T;
+  timeframe?: T;
   client_work?: T;
   in_progress?: T;
   technologies?: T;

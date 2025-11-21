@@ -1,17 +1,24 @@
 import React from "react"
 import { Header } from "@/components/Header"
-import { LucideFileText, LucideGithub } from "lucide-react"
+import {
+  LucideCircleUserRound,
+  LucideClock,
+  LucideFileText,
+  LucideGithub,
+  LucideWrench,
+} from "lucide-react"
 import { getPayload } from "payload"
 import configPromise from "@payload-config"
 import { cacheTag } from "next/dist/server/use-cache/cache-tag"
 import Link from "next/link"
-import { Media } from "@/payload-types"
+import { Media, Technology } from "@/payload-types"
 import FeaturedProjectCard from "@/components/FeaturedProjectCard"
 import { SideProjectCard } from "@/components/SideProjectCard"
 import Logo from "@/app/(frontend)/logo"
 import { Hero } from "@/components/hero"
 import { TechnologyCell } from "@/components/TechnologyCell"
 import { Metadata } from "next"
+import { ProjectScreenshot } from "@/components/ProjectScreenshot"
 
 export const generateMetadata = async (): Promise<Metadata> => {
   const payload = await getPayload({
@@ -39,27 +46,28 @@ export default async function HomePage() {
     config: configPromise,
   })
 
-  const catchPhrase = await payload.findGlobal({
-    slug: "hero",
-  })
-  const aboutMe = await payload.findGlobal({
-    slug: "about",
-    depth: 1,
-  })
-  const technologies = await payload.find({
-    collection: "technology",
-    limit: 12,
-    depth: 1,
-    pagination: false,
-  })
+  const [catchPhrase, aboutMe, technologies, projects] = await Promise.all([
+    await payload.findGlobal({
+      slug: "hero",
+    }),
+    await payload.findGlobal({
+      slug: "about",
+      depth: 1,
+    }),
+    await payload.find({
+      collection: "technology",
+      limit: 12,
+      depth: 1,
+      pagination: false,
+    }),
+    await payload.find({
+      collection: "project",
+      depth: 2,
+      pagination: false,
+    }),
+  ])
 
-  const projects = await payload.find({
-    collection: "project",
-    depth: 2,
-    pagination: false,
-  })
-
-  const featuredProjects = projects.docs.filter((project) => project.featured)
+  const featuredProjects = projects.docs.filter((project) => project.featured).reverse()
   const sideProjects = projects.docs.filter((project) => !project.featured)
 
   return (
@@ -123,16 +131,130 @@ export default async function HomePage() {
       </div>
       <div className="py-4 sm:py-8" id="projects">
         <div className="max-w-6xl mx-auto px-6 sm:px-8">
-          <div className="grid sm:grid-cols-2 w-full relative after:-z-10 before:-z-10 after:absolute after:-inset-y-px after:-inset-x-3 sm:after:-inset-x-4 after:border-y after:border-y-border before:absolute before:-inset-x-px before:-inset-y-3 sm:before:-inset-y-4 before:border-x before:border-x-border">
-            {featuredProjects.map((project, i) => (
-              <FeaturedProjectCard
-                className="flex-1 sm:[&:nth-child(odd)]:border-r border-border sm:border-b sm:[&:nth-last-child(even)]:border-b-0 sm:[&:nth-last-child(odd)]:border-b-0"
-                project={project}
-                index={i}
-                key={project.id}
-              />
-            ))}
-          </div>
+          {featuredProjects.map((project, i) => (
+            <div
+              key={project.id}
+              className="grid grid-cols-1 sm:grid-cols-2 items-start gap-4 sm:gap-12 py-8"
+            >
+              <div className="flex flex-col gap-4 sm:gap-6 md:gap-8 max-sm:order-1 sm:py-8 sticky top-20">
+                <div className="flex items-center pr-4 group">
+                  <div className="flex-1">
+                    <span className="uppercase font-semibold tracking-wide text-xs sm:text-sm text-muted block">
+                      projects
+                    </span>
+                    <h1 className="text-3xl sm:text-4xl md:text-5xl group-hover:text-primary group-hover:underline underline-offset-8 decoration-2 font-display font-bold tracking-tighter line-clamp-2 leading-none pb-1">
+                      {project.title}
+                    </h1>
+                  </div>
+                  <svg
+                    viewBox="0 0 48 48"
+                    className="fill-foreground group-hover:fill-primary transition-transform group-hover:translate-x-2 size-8 sm:size-10 md:size-12"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M27.7129 2.62646C27.755 2.59102 27.8179 2.59623 27.8535 2.63818L45.875 23.9351C45.9066 23.9723 45.9066 24.0277 45.875 24.0649L27.8535 45.3618C27.8179 45.4038 27.755 45.409 27.7129 45.3735L23.2871 41.6265C23.2452 41.5908 23.2399 41.5279 23.2754 41.4858L35.3926 27.1646C35.4476 27.0996 35.4015 27.0005 35.3164 27.0005H7.59961C7.54456 27.0003 7.5 26.955 7.5 26.8999V21.1001C7.5 21.045 7.54456 21.0007 7.59961 21.0005H35.3164C35.4015 21.0005 35.4476 20.9004 35.3926 20.8354L23.2754 6.51416C23.2399 6.47206 23.2452 6.40919 23.2871 6.37354L27.7129 2.62646Z"
+                      className="fill-inherit"
+                    />
+                    <path
+                      d="M27.7129 2.62646C27.755 2.59102 27.8179 2.59623 27.8535 2.63818L45.875 23.9351C45.9066 23.9723 45.9066 24.0277 45.875 24.0649L27.8535 45.3618C27.8179 45.4038 27.755 45.409 27.7129 45.3735L23.2871 41.6265C23.2452 41.5908 23.2399 41.5279 23.2754 41.4858L35.3926 27.1646C35.4476 27.0996 35.4015 27.0005 35.3164 27.0005H7.59961C7.54456 27.0003 7.5 26.955 7.5 26.8999V21.1001C7.5 21.045 7.54456 21.0007 7.59961 21.0005H35.3164C35.4015 21.0005 35.4476 20.9004 35.3926 20.8354L23.2754 6.51416C23.2399 6.47206 23.2452 6.40919 23.2871 6.37354L27.7129 2.62646Z"
+                      className="stroke-inherit"
+                    />
+                  </svg>
+                </div>
+                <div className="flex gap-4 flex-wrap">
+                  {project.technologies.map((tech) => {
+                    const technology = tech as Technology
+
+                    if (technology.symbol_override) {
+                      return (
+                        <picture
+                          className="size-6 sm:size-8 rounded overflow-hidden"
+                          key={technology.id}
+                        >
+                          <source
+                            media="(prefers-color-scheme: light)"
+                            srcSet={(technology.symbol_override as Media).url!}
+                            type="image/svg+xml"
+                            className="dark:brightness-200 dark:saturate-0"
+                          />
+                          {technology.dark_mode_symbol_override && (
+                            <source
+                              media="(prefers-color-scheme: dark)"
+                              srcSet={(technology.dark_mode_symbol_override as Media).url!}
+                            />
+                          )}
+                          <img
+                            className="size-full object-contain"
+                            src={(technology.symbol_override as Media).url!}
+                            alt={technology.name}
+                          />
+                        </picture>
+                      )
+                    }
+
+                    return (
+                      <picture
+                        className="size-6 sm:size-8 rounded overflow-hidden"
+                        key={technology.id}
+                      >
+                        <source
+                          media="(prefers-color-scheme: light)"
+                          srcSet={`https://cdn.brandfetch.io/${technology.brand_identifier}/symbol?c=1idIpPfKaZoBskq9FCV`}
+                          className="dark:brightness-200 dark:saturate-0"
+                        />
+                        <source
+                          media="(prefers-color-scheme: dark)"
+                          srcSet={
+                            (technology.dark_mode_symbol_override as Media)?.url ||
+                            `https://cdn.brandfetch.io/${technology.brand_identifier}/theme/light/symbol?c=1idIpPfKaZoBskq9FCV`
+                          }
+                        />
+                        <img
+                          className="size-full object-contain "
+                          src={`https://cdn.brandfetch.io/${technology.brand_identifier}/symbol?c=1idIpPfKaZoBskq9FCV`}
+                          alt={technology.name}
+                        />
+                      </picture>
+                    )
+                  })}
+                </div>
+                <div className="flex gap-4 sm:gap-6 items-center flex-wrap">
+                  {!!project.timeframe && (
+                    <div className="flex items-center gap-1.5 text-muted">
+                      <LucideClock className="size-4" />
+                      <span className="text-xs sm:text-sm font-[450]">{project.timeframe}</span>
+                    </div>
+                  )}
+                  {!!project.client_work && (
+                    <div className="flex items-center gap-1.5 text-muted">
+                      <LucideCircleUserRound className="size-4" />
+                      <span className="text-xs sm:text-sm font-[450]">Client Work</span>
+                    </div>
+                  )}
+                  {!!project.in_progress && (
+                    <div className="flex items-center gap-1.5 text-primary">
+                      <LucideWrench className="size-4 animate-pulse" />
+                      <span className="text-xs sm:text-sm font-[450]">In Progress</span>
+                    </div>
+                  )}
+                </div>
+                <p className="text-sm md:text-base lg:text-lg leading-5 md:leading-6 lg:leading-8 text-muted">
+                  {project.description}
+                </p>
+              </div>
+              <div className="flex sm:flex-col items-center max-sm:overflow-x-auto max-sm:-mx-6 max-sm:px-6 overflow-y-visible py-2">
+                {project.screenshots &&
+                  (project.screenshots as Media[]).map((image, index) => (
+                    <ProjectScreenshot
+                      key={image.id}
+                      index={index}
+                      title={project.title}
+                      image={image}
+                    />
+                  ))}
+              </div>
+            </div>
+          ))}
         </div>
       </div>
       <div className="py-4 sm:py-8">

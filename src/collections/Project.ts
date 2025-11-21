@@ -29,6 +29,12 @@ export const Project: CollectionConfig = {
       required: false,
     },
     {
+      name: "timeframe",
+      type: "text",
+      label: "Project Timeframe",
+      required: false,
+    },
+    {
       name: "client_work",
       type: "checkbox",
       label: "Client Work",
